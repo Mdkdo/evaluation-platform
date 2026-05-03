@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une Évaluation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">EvalPlatform - Création d'Évaluation</div>
+            <ul class="nav-links">
+                <li><a href="/">Tableau de Bord</a></li>
+                <li><a href="#" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="evaluation-builder">
+            <div class="builder-sidebar">
+                <div class="builder-header">
+                    <h2>Paramètres</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="evalTitle">Titre de l'évaluation:</label>
+                    <input type="text" id="evalTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="evalDescription">Description:</label>
+                    <textarea id="evalDescription"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="evalPoints">Points totaux:</label>
+                    <input type="number" id="evalPoints" value="20" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="shuffleAnswers">
+                        Mélanger l'ordre des réponses
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="showScore" checked>
+                        Afficher la note globale
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="showQuestionScores" checked>
+                        Afficher les notes par question
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="showAnswers" checked>
+                        Afficher les bonnes réponses (couleur)
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" onclick="addSection()">+ Ajouter Section</button>
+                <button class="btn btn-secondary" onclick="addQuestion()">+ Ajouter Question</button>
+                <button class="btn btn-success" onclick="saveEvaluation()">Enregistrer</button>
+                <button class="btn btn-warning" onclick="publishEvaluation()">Publier</button>
+            </div>
+
+            <div class="builder-main">
+                <div id="evaluationPreview" class="evaluation-preview">
+                    <div class="preview-header" id="previewHeader"></div>
+                    <div id="questionsContainer" class="questions-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Modal -->
+    <div id="questionModal" class="modal" style="display: none;">
+        <div class="modal-content modal-lg">
+            <span class="close" onclick="closeModal('questionModal')">&times;</span>
+            <h2>Ajouter/Éditer Question</h2>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label for="questionType">Type de question:</label>
+                    <select id="questionType" onchange="updateQuestionForm()" required>
+                        <option value="">Choisir un type</option>
+                        <option value="radio">QCM (une seule réponse)</option>
+                        <option value="checkbox">QCM (plusieurs réponses)</option>
+                        <option value="open_text">Question ouverte</option>
+                        <option value="short_answer">Réponse courte</option>
+                        <option value="table_radio">Tableau de choix (radios)</option>
+                        <option value="table_checkbox">Tableau de choix (cases)</option>
+                        <option value="drag_drop_image">Drag & Drop sur images</option>
+                        <option value="drag_drop_mapped_image">Drag & Drop sur image mappée</option>
+                        <option value="drag_drop_text">Drag & Drop sur texte mappé</option>
+                        <option value="matching">Relier les éléments</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="questionTitle">Énoncé:</label>
+                    <textarea id="questionTitle" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="questionDescription">Description complémentaire:</label>
+                    <textarea id="questionDescription"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="questionImage">Image (URL):</label>
+                    <input type="url" id="questionImage">
+                </div>
+
+                <div class="form-group">
+                    <label for="questionPoints">Points:</label>
+                    <input type="number" id="questionPoints" value="1" min="0.5" step="0.5">
+                </div>
+
+                <!-- Options Container -->
+                <div id="optionsContainer" style="display: none;">
+                    <h3>Réponses</h3>
+                    <div id="optionsList"></div>
+                    <button type="button" class="btn btn-secondary" onclick="addOption()">+ Ajouter Réponse</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer Question</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/evaluation-builder.js"></script>
+    <script src="js/api.js"></script>
+</body>
+</html>

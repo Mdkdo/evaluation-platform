@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passer une Évaluation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">EvalPlatform - Évaluation</div>
+            <ul class="nav-links">
+                <li><a href="/">Tableau de Bord</a></li>
+                <li><a href="#" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="loadingState" class="loading-state" style="display: none;">
+            <p>Chargement de l'évaluation...</p>
+        </div>
+
+        <div id="evaluationTaker" class="evaluation-taker">
+            <div id="evaluationHeader" class="evaluation-header"></div>
+            <form id="evaluationForm" class="evaluation-form">
+                <div id="questionsContainer" class="questions-container"></div>
+                <button type="submit" class="btn btn-primary btn-lg">Soumettre</button>
+            </form>
+        </div>
+
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="results-header">
+                <h2>Résultats</h2>
+            </div>
+            <div id="resultsContent" class="results-content"></div>
+            <button class="btn btn-primary" onclick="window.location.href = '/'">Retour au Tableau de Bord</button>
+        </div>
+    </div>
+
+    <script src="js/evaluation-taker.js"></script>
+    <script src="js/api.js"></script>
+</body>
+</html>
